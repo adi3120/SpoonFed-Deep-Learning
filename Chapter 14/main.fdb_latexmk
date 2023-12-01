@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1701459989 "d:/Deep Learning Book/TeX/Chapter 14/main.tex" "main.pdf" "main" 1701459992 0
+["pdflatex"] 1701460272 "d:/Deep Learning Book/TeX/Chapter 14/main.tex" "main.pdf" "main" 1701460274 0
   "C:/Users/ACER/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map" 1701341247 81450 fd725b9df3a6a23abb2d737643bb3f51 ""
   "C:/Users/ACER/AppData/Local/MiKTeX/fonts/pk/ljfour/jknappen/ec/dpi600/tcrm1000.pk" 1701106130 11548 6bf15b47ac95ae6ad9915cef7d2fe183 ""
   "C:/Users/ACER/AppData/Local/MiKTeX/miktex/data/le/pdftex/pdflatex.fmt" 1700750990 24196822 30c08e0c8441fdcba729b2a220139e10 ""
@@ -205,9 +205,9 @@
   "D:/MiKTeX/tex/latex/tools/verbatim.sty" 1698867131 7392 ed69c044ab18d5539723c1c7b8c2ee88 ""
   "D:/MiKTeX/tex/latex/trimspaces/trimspaces.sty" 1253169183 1380 971a51b00a14503ddf754cab24c3f209 ""
   "D:/MiKTeX/tex/latex/xcolor/xcolor.sty" 1700127522 55487 80a65caedd3722f4c20a14a69e785d8f ""
-  "d:/Deep Learning Book/TeX/Chapter 14/main.tex" 1701459990 16006 dfd5aec78ac107be7545448bbcb534db ""
-  "main.aux" 1701459992 455 04db44c5545185a84e7a2a5cb30f3cbb "pdflatex"
-  "main.tex" 1701459990 16006 dfd5aec78ac107be7545448bbcb534db ""
+  "d:/Deep Learning Book/TeX/Chapter 14/main.tex" 1701460270 16022 52b27ea5ba23097b1d7a310857e464e1 ""
+  "main.aux" 1701460274 455 04db44c5545185a84e7a2a5cb30f3cbb "pdflatex"
+  "main.tex" 1701460270 16022 52b27ea5ba23097b1d7a310857e464e1 ""
   (generated)
   "main.aux"
   "main.log"
