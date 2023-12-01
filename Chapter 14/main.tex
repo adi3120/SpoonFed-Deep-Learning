@@ -1,6 +1,513 @@
 \documentclass{article}
-\title{\textbf{Chapter 14\\Singular Value Decomposition}}
+\usepackage{pgfplots}
+\usepackage[most]{tcolorbox}
+\usepackage{pgfplotstable}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+\title{\textbf{Chapter 14\\Rank of a Matix and Singular Value Decomposition}}
 \date{}
 \begin{document}
 \maketitle
+\section{Rank of a Matrix}
+Rank of a matrix is the number of linearly independent columns of a matrix\\
+For example,\\
+Consider this matrix\\
+$$
+  \begin{bmatrix}
+    1 & 1 \\
+    1 & 2
+  \end{bmatrix}
+$$
+Can the first column $\begin{bmatrix}
+    1 \\
+    1
+  \end{bmatrix}$ be written as a linear combination of its previous columns? \\Since there are no previous columns, this column is linearly independent of its previous columns, hence we can put a $\times$ over it.\\
+$$
+  \begin{matrix}
+    \times &   \\
+  \end{matrix}
+$$
+$$
+  \begin{bmatrix}
+    1 & 1 \\
+    1 & 2
+  \end{bmatrix}
+$$
+Can the second column $\begin{bmatrix}
+    1 \\
+    2
+  \end{bmatrix}$ be written as a linear combination of its previous columns?\\
+No, we can not write $c$$\begin{bmatrix}
+  1 \\
+  1
+\end{bmatrix}$=$\begin{bmatrix}
+  1 \\
+  2
+\end{bmatrix}$\\
+  Hence, this column is also linearly independent. We can put a $\times$ over it also.
+$$
+  \begin{matrix}
+    \times & \times \\
+  \end{matrix}
+$$
+$$
+  \begin{bmatrix}
+    1 & 1 \\
+    1 & 2
+  \end{bmatrix}
+$$
+We are done with all the columns, now to calculate the rank of this matrix we just need to calculate number of $\times$ over this matrix.\\
+Hence, Rank$\left(
+  \begin{bmatrix}
+      1 & 1 \\
+      1 & 2
+    \end{bmatrix}
+  \right)$=2\\
+More examples\\
+\begin{enumerate}
+  \item $$
+          \begin{matrix}
+            \times &   \\
+          \end{matrix}
+        $$
+        $$
+          Rank\left(\begin{bmatrix}
+              1 & 2 \\
+              1 & 2
+            \end{bmatrix}\right)= 1
+        $$
+  \item $$
+          \begin{matrix}
+              &   \\
+          \end{matrix}
+        $$
+        $$
+          Rank\left(\begin{bmatrix}
+              0 & 0 \\
+              0 & 0
+            \end{bmatrix}\right)= 0
+        $$
+\end{enumerate}
+
+Now, let's consider a bigger matrix\\
+$$
+  \begin{bmatrix}
+    1 & 1 & 2 & 4 & 2 \\
+    2 & 1 & 3 & 5 & 4 \\
+    1 & 1 & 2 & 4 & 2 \\
+    0 & 1 & 1 & 3 & 0 \\
+  \end{bmatrix}=\begin{bmatrix}
+    \uparrow &\uparrow &\uparrow&\uparrow&\uparrow \\
+    a_1 & a_2 & a_3 & a_4 & a_5 &   \\
+    \downarrow &\downarrow&\downarrow&\downarrow&\downarrow \\
+  \end{bmatrix}
+$$
+\begin{itemize}
+  \item $a_1=
+          \begin{bmatrix}
+            1 \\
+            2 \\
+            1 \\
+            0 \\
+          \end{bmatrix}
+        $ can't be written as a linear combination of it's previous columns
+
+  \item $a_2=
+          \begin{bmatrix}
+            1 \\
+            1 \\
+            1 \\
+            1 \\
+          \end{bmatrix}
+        $ can't be written as a linear combination of it's previous columns
+
+  \item $a_3=
+          \begin{bmatrix}
+            2 \\
+            3 \\
+            2 \\
+            1 \\
+          \end{bmatrix}
+        $ can be written as a linear combination of it's previous columns
+        $$
+          \begin{bmatrix}
+            1 \\
+            2 \\
+            1 \\
+            0 \\
+          \end{bmatrix}+\begin{bmatrix}
+            1 \\
+            1 \\
+            1 \\
+            1 \\
+          \end{bmatrix}=\begin{bmatrix}
+            2 \\
+            3 \\
+            2 \\
+            1 \\
+          \end{bmatrix}
+        $$
+        $$
+          a_1+a_2=a_3
+        $$
+
+  \item $a_4=
+          \begin{bmatrix}
+            4 \\
+            5 \\
+            4 \\
+            3 \\
+          \end{bmatrix}
+        $ can be written as a linear combination of it's previous columns
+        $$
+          1\begin{bmatrix}
+            1 \\
+            2 \\
+            1 \\
+            0 \\
+          \end{bmatrix}+3\begin{bmatrix}
+            1 \\
+            1 \\
+            1 \\
+            1 \\
+          \end{bmatrix}+0\begin{bmatrix}
+            2 \\
+            3 \\
+            2 \\
+            1 \\
+          \end{bmatrix}=\begin{bmatrix}
+            4 \\
+            5 \\
+            4 \\
+            3 \\
+          \end{bmatrix}
+        $$
+        $$
+          1a_1+3a_2+0.a_3=a_4
+        $$
+
+  \item $a_5=
+          \begin{bmatrix}
+            2 \\
+            4 \\
+            2 \\
+            0 \\
+          \end{bmatrix}
+        $ can be written as a linear combination of it's previous columns
+        $$
+          2\begin{bmatrix}
+            1 \\
+            2 \\
+            1 \\
+            0 \\
+          \end{bmatrix}+0\begin{bmatrix}
+            1 \\
+            1 \\
+            1 \\
+            1 \\
+          \end{bmatrix}+0\begin{bmatrix}
+            2 \\
+            3 \\
+            2 \\
+            1 \\
+          \end{bmatrix}+0\begin{bmatrix}
+            4 \\
+            5 \\
+            4 \\
+            3 \\
+          \end{bmatrix}=\begin{bmatrix}
+            2 \\
+            4 \\
+            2 \\
+            0 \\
+          \end{bmatrix}
+        $$
+        $$
+          2a_1+0a_2+0a_3+0a_4=a_5
+        $$
+\end{itemize}
+Hence\\
+$$
+  \begin{bmatrix}
+    \times & \times & . & . & . \\
+  \end{bmatrix}
+$$
+$$
+  Rank\left(
+  \begin{bmatrix}
+      1 & 1 & 2 & 4 & 2 \\
+      2 & 1 & 3 & 5 & 4 \\
+      1 & 1 & 2 & 4 & 2 \\
+      0 & 1 & 1 & 3 & 0 \\
+    \end{bmatrix}
+  \right)=2
+$$
+What does this means?\\
+This means we can write all the columns of this matrix using a linear combination of only the 1st and 2nd column i.e., $a_1$ and $a_2$.\\
+This means $a_1$ and $a_2$ are the linearly independent basis vectors for $a_3,a_4 \& a_5$\\
+this means \\
+\begin{itemize}
+  \item $a_1$=1$a_1$+0$a_2$
+  \item $a_2$=0$a_1$+1$a_2$
+  \item $a_3$=1$a_1$+1$a_2$
+  \item $a_4$=1$a_1$+3$a_2$
+  \item $a_5$=2$a_1$+0$a_2$
+\end{itemize}$\Longrightarrow \begin{bmatrix}
+    \uparrow &\uparrow &\uparrow &\uparrow &\uparrow \\
+    a_1&a_2&a_3&a_4&a_5\\
+    \downarrow & \downarrow & \downarrow & \downarrow & \downarrow &   \\
+  \end{bmatrix}=\begin{bmatrix}
+    \uparrow   & \uparrow   \\
+    a_1        & a_2        \\
+    \downarrow & \downarrow \\
+  \end{bmatrix}.\begin{bmatrix}
+    1 & 0 & 1 & 1 & 2 \\
+    0 & 1 & 1 & 3 & 0 \\
+  \end{bmatrix}$
+\pagebreak
+\begin{itemize}
+  \item Hence, there exist $Rank(A)$ basis vectors for a matrix $A$.
+  \item If $M$ is a square matrix of dimensions $n\times n$ then there exist n eigenvectors which can act as a basis for this matrix.
+        \subitem But what if $Rank(M)<n$
+        \subitem is this conflicting with our result that "there exist $Rank(A)$ basis vectors for a matrix $A$"? Not really.
+        \subitem If $Rank(M)<n$ then there would still be $n$ eigenvectors but only $Rank(M)$ non-zero eigenvalues.
+        \subitem These $n-Rank(M)$ zero eigenvalues when multiplied with their corressponding eigenvectors will make them zero vectors.
+        \subitem for example $Rank\left(\begin{bmatrix}
+              1 & 2 \\
+              1 & 2
+            \end{bmatrix}\right)=1$ but number of eigenvectors=2\\
+        Let $v_1,v_2$ be eigenvectors of this matrix and $\lambda_1,\lambda_2$ be eigenvalues of this matrix\\
+        $v_1=\begin{bmatrix}
+            -2 \\
+            1
+          \end{bmatrix}$ and  $v_2=\begin{bmatrix}
+            1 \\
+            1
+          \end{bmatrix}$\\
+        But
+        $\lambda_1=0$ and
+        $\lambda_2=3$
+
+        This means there is only 1 non-zero basis vector of this matrix with $Rank=1$
+  \item Hence, the correct result is: there exist $Rank(A)$ non-zero basis vectors for a matrix $A$.
+
+\end{itemize}
+
+\pagebreak
+\section{Problem}
+If $A$ is a square matrix then we can write\\
+$$
+  Av_1=\lambda_1v_1
+$$
+$$
+  Av_2=\lambda_2v_2
+$$
+$$
+  \vdots
+$$
+$$
+  Av_n=\lambda_nv_n
+$$
+Where $v_1,v_2,\dots,v_n$ are the eigenvectors of $A$ and $\lambda_1,\lambda_2,\dots,\lambda_n$ are the eigenvalues of $A$.\\
+If $v_1,v_2,\dots,v_n$ are taken as basis, then we can write any vector $x \in \mathbb{R}^n$ as a linear combination of these basis eigenvectors.\\
+$$
+  x=\alpha_1v_1+\alpha_2v_2+\dots+\alpha_nv_n=\sum_{i=1}^{n}\alpha_iv_i\\
+$$
+So, what would be matrix vector product $Ax$ be?\\
+$$
+  Ax=\sum_{i=1}^{n}\alpha_i.A.v_i=\sum_{i=1}^{n}\alpha_i\lambda_iv_i\\\\
+$$
+A matrix vector product became a scalar vector product...!!!\\
+That's one of the advantage of having a square matrix is that we can have eigenvectors and eigenvalues and convert that matrix's operations into something simpler.\\\\
+Can we have eigenvectors for a non-square i.e., a rectangular matrix?\\
+In other words, is this possible\\
+$$
+  A_{\mbox{(m x n)}}x_{\mbox{(n x 1)}}=x_{\mbox{(n x 1)}}?
+$$
+No!, Why?\\
+Because\\
+$$
+  \mathbb{R}^{\mbox{(m x n)}}.\mathbb{R}^{\mbox{(n x 1)}}=\mathbb{R}^{\mbox{(m x 1)}}
+$$
+$$
+  \begin{bmatrix}
+      &                       &   \\
+      & \mbox{(m x n)} Matrix &   \\
+      &                       &
+  \end{bmatrix}.\begin{bmatrix}
+    \\
+    \\
+    \\
+    \mbox{(n x 1)} \\
+    Vector         \\
+    \\
+    \\
+    \\
+  \end{bmatrix}\Longrightarrow \begin{bmatrix}
+    \\
+    \\
+    \mbox{(m x 1)} \\
+    Vector         \\
+    \\
+    \\
+  \end{bmatrix}
+$$
+Since, any vector cannot remain of the same dimensions after rectangular matrix transformation.\\
+Hence eigenvectors don't exist for rectangular matrices.\\
+Can we not have something that can change a matrix operation into some scalar operations for a rectangular matrices then?\\
+\section{Setup}
+Ok, so we can think of a rectangular matrix $\mathbb{R}^{\mbox{m x n}}$ as a function that takes a $\mathbb{R}^n$ matrix and outputs a $\mathbb{R}^m$ matrix.\\
+If $(v_1,u_1),(v_2,u_2),\dots,(v_k,u_k)$ are pairs of vectors such that\\
+$v_i\in \mathbb{R}^n$ and $u_i\in \mathbb{R}^m$\\ then we hope to write.\\
+$$
+  Av_i=\sigma_iu_i
+$$
+Where, $A \in \mathbb{R^{\mbox{m x n}}}$\\
+And if this is true and if a $\sigma_i$ exist\\
+And if we assume that $v_1,v_2,\dots,v_k$ are orthonormal and thus form a basis $V$ in $\mathbb{R}^n$ then we can write any $x\in\mathbb{R}^{n}$ as a linear combination of these $v_1,v_2,\dots,v_k$ basis vectors\\
+$$
+  x=\alpha_1v_1+\alpha_2v_2+\dots+\alpha_kv_k=\sum_{i=1}^{k}\alpha_iv_i\\
+$$
+But do you see something, $x$ is an $n$ dimensional vector and we are trying to represent it using $k$ basis's which means $k$ dimensions, why?\\
+Recall that if $M\in \mathbb{R}^n$ is a square matrix of dimensions n x n then, there will be $n$ eigenvectors for it.\\
+And we know eigenvectors are linearly independent and can thus form a basis for any vector $x\in \mathbb{R}^n$.\\
+So, we can say a square matrix of dimensions $n\times n$ can always have $n$ basis vectors.\\
+But we cannot say the same for non-square aka rectangular matrices.\\
+There can only be $Rank(M)$ non-zero basis vectors for a non-square matrix.\\\\
+Hence the dimensions of x will have $k$ non-zero basis vectors, where $k=Rank(A)$\\
+Therefore,
+$$
+  x=\alpha_1v_1+\alpha_2v_2+\dots+\alpha_kv_k=\sum_{i=1}^{k}\alpha_iv_i\\
+$$
+\section{Finding the Reduced form of $A_{m\times n}$}
+And If $
+  Av_i=\sigma_iu_i
+$ was possible then we can write\\
+$$
+  A_{m \times n}.V_{n \times k}=U_{m\times k}.\Sigma_{k\times k}
+$$
+$$
+  A_{m \times n}.\begin{bmatrix}
+    \uparrow   & \uparrow   & \dots & \uparrow   \\
+    v_1        & v_2        & \dots & v_k        \\
+    \downarrow & \downarrow & \dots & \downarrow \\
+  \end{bmatrix}=\begin{bmatrix}
+    \uparrow   & \uparrow   & \dots & \uparrow   \\
+    u_1        & u_2        & \dots & u_k        \\
+    \downarrow & \downarrow & \dots & \downarrow \\
+  \end{bmatrix}.\begin{bmatrix}
+    \sigma_1 & 0        & \dots  & 0        \\
+    0        & \sigma_2 & \dots  & 0        \\
+    \vdots   & \vdots   & \ddots & \vdots   \\
+    0        & 0        & \dots  & \sigma_k \\
+  \end{bmatrix}
+$$
+Here,
+\begin{itemize}
+  \item $V$ is a matrix of input basis vectors
+  \item $U$ is a matrix of ouput basis vectors
+\end{itemize}
+Since, we have only $k$ orthogonal basis vectors for $V$ and $U$ and there are $n-k$ basis vectors remaning we can find these remaining vectors using Gram Schmidt orthogonalisation process.\\
+After getting all $n$ orthogonal basis vectors\\
+$$
+  A_{m \times n}.V_{n \times n}=U_{m\times n}.\Sigma_{n\times n}
+$$
+$$
+  A_{m \times n}.\begin{bmatrix}
+    \uparrow   & \uparrow   & \dots & \uparrow   \\
+    v_1        & v_2        & \dots & v_n        \\
+    \downarrow & \downarrow & \dots & \downarrow \\
+  \end{bmatrix}=\begin{bmatrix}
+    \uparrow   & \uparrow   & \dots & \uparrow   \\
+    u_1        & u_2        & \dots & u_n        \\
+    \downarrow & \downarrow & \dots & \downarrow \\
+  \end{bmatrix}.\begin{bmatrix}
+    \sigma_1 & 0        & \dots  & 0        \\
+    0        & \sigma_2 & \dots  & 0        \\
+    \vdots   & \vdots   & \ddots & \vdots   \\
+    0        & 0        & \dots  & \sigma_n \\
+  \end{bmatrix}
+$$
+Then we can say,\\
+Since, $V$ and $U$ are orthogonal matrices, this means\\
+$V^TV=\mathbb{I}$ [Identity matrix]\\
+$U^TU=\mathbb{I}$ [Identity matrix]\\\\
+But we also know for any matrix $M$, $M^{-1}M=\mathbb{I}$\\
+This means\\
+$V^{T}=V^{-1}$ if $V$ is an orthogonal matrix\\
+$U^{T}=U^{-1}$ if $U$ is an orthogonal matrix\\\\
+And if,
+$$
+  A.V=U.\Sigma
+$$
+Then,
+$$
+  U^{-1}AV=\Sigma=U^{T}AV \ [Diagonalisation\ of\ A]
+$$
+
+$$
+  A=U.\Sigma.V^{-1}=U.\Sigma.V^{T} \ [Singular\ Value\ Decomposition\ of\ A]
+$$
+This is called Singular Value Decomposition, as we are decomposing a non-square matrix $A$ into simpler vector matrices and its singular values which allows us for simpler operations on $A$.\\
+\begin{tcolorbox}[colback=blue!5!white,colframe=blue!75!black,title=Singular Values]
+	Singular values of a matrix $M$ are the positive square roots of the eigenvalues of $M^TM$
+  \end{tcolorbox}
+Suppose $V,U \& \Sigma$ exist, then\\
+$$
+  A_{n \times m}^{T}A_{m \times n}=M_{n \times n}=(U.\Sigma.V^{T})^T.(U.\Sigma.V^{T})=V.\Sigma^{T}.U^T.U.\Sigma.V^{T}=V.\Sigma^{T}.\mathbb{I}.\Sigma.V^{T}=V.\Sigma^{T}.\Sigma.V^{T}
+$$
+But since $\Sigma$ is a diagonal matrix $\Sigma^T\Sigma=\Sigma^2$\\
+Hence
+$$
+  A^{T}A=V.\Sigma^{T}.\Sigma.V^{T}=V.\Sigma^{2}.V^{T}
+$$
+$$
+  A^{T}A=V.\Sigma^{2}.V^{T}
+$$
+Similarly
+$$
+  AA^{T}=U.\Sigma^{2}.U^{T}
+$$
+If we Recall,\\
+If $S$ is a square symmetric matrix, $E$ is a matrix of orthonormal eigenvectors of $S$ and $\Lambda$ is a diagonal matrix of eigenvalues of $S$\\
+$$
+  S=E\Lambda E^T
+$$
+Is the Eigenvalue Decomposition of $S$\pagebreak
+
+In our situation also\\
+
+\begin{tcolorbox}[colback=blue!5!white,colframe=blue!75!black,title=Singular Value Decomposition $\Longleftrightarrow $ Eigenvalue Decomposition]
+	For 
+	$$
+	  A^{T}A=V.\Sigma^{2}.V^{T}
+	$$
+	
+	\begin{itemize}
+		\item $A^{T}A$ is a square symmetric matrix
+		\item $V$ is the matrix of eigenvectors of $A^{T}A$
+		\item $V$ is also called the right singular vectors of matrix $A$
+		\item $\Sigma^{2}$ is the diagonal matrix of eigenvalues of $A^{T}A$. 
+		\item $\Sigma^{2}$ These eigenvalues are also the squares of singular values of $A$
+	\end{itemize}
+  \end{tcolorbox}
+
+\begin{tcolorbox}[colback=blue!5!white,colframe=blue!75!black,title=Singular Value Decomposition $\Longleftrightarrow $ Eigenvalue Decomposition]
+	and for
+
+	$$
+	  AA^{T}=U.\Sigma^{2}.U^{T}
+	$$
+	
+	\begin{itemize}
+		\item $AA^{T}$ is a square symmetric matrix
+		\item $U$ is the matrix of eigenvectors of $AA^{T}$
+		\item $U$ is also called the left singular vectors of matrix $A$
+		\item $\Sigma^{2}$ is the diagonal matrix of eigenvalues of $AA^{T}$.
+		\item $\Sigma^{2}$ These eigenvalues are also the squares of singular values of $A$
+	\end{itemize}
+  \end{tcolorbox}
+
+
 \end{document}
